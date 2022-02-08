@@ -3,12 +3,19 @@ This is the source code for the paper (submission id: ) submitted to KDD'22
 
 # Requirements
 python                    3.8.11
+
 tensorflow-gpu            2.6.0
+
 tensorflow-datasets       4.2.0
+
 sktime                    0.7.0
+
 pandas                    1.3.2
+
 numpy                     1.19.5
+
 scikit-learn              0.24.2
+
 
 # Training and Evaluation
 1. Physionet dataset
