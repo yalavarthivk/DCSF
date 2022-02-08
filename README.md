@@ -35,3 +35,7 @@ python fit_model.py --random_seed 952602820 --dataset mimic3_mortality --balance
 ```
 python fit_model.py --random_seed 144281024 --dataset activity --max_epochs 1000 --early_stopping 30 --log_dir best_hp_results/activity/  Classifier_RESNET_act_att --learning_rate 0.00084 --batch_size 32 --warmup_steps 0 --normalize 1 --n_dense_layers 3 --dense_width 512 --dense_dropout 0.2 --phi_width 512 --n_cnn_layers 2
 ```
+
+# Adding datasets
+
+While Physionet dataset can be automatically downloaded, because of the permissions issue you cannot download MIMIC dataset automatically. MIMIC data after preprocessing can be added to ~/Tensorflowdatasets/downloads/manual folder. We have provided the synthetic datsets in Datasets folder. These datasets are also needed to be in ~/Tensorflowdatasets/downloads/manual folder for running the model.
