@@ -3,34 +3,23 @@ import os
 import logging
 
 import async.cli.silence_warnings
+# import tensorflow as tf
+# tf.enable_eager_execution()
+# tf.config.experimental_run_functions_eagerly(True)
+
 import tensorboard.plugins.hparams.api as hp
 
-
+import async.models
 from async.training_routine import TrainingLoop
 from async.tasks import DATASET_TO_TASK_MAPPING
 from async.training_utils import LogRealInterval
 
-import async.models
 from async.cli.cli_utils import (
     parse_commandline_arguments,
     get_reproducable_commandline,
     save_args_to_json
 )
-from async.cli.hyperparameters import get_hyperparameter_settings
-
-logging.basicConfig(level=logging.WARNING)
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-import tensorflow as tf
-import sys
-import subprocess
-import time
-import numpy as np
-
-
-import pdb
-MAX_KEY_LEN = max(len(key) for key in os.environ)
-
+from .hyperparameters import get_hyperparameter_settings
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -45,7 +34,7 @@ def handle_special_cases(args, hyperparameters):
                 return h
         raise IndexError()
 
-    if args.model in ['InterpolationPredictionModel']:
+    if args.model in ['InterpolationPredictionModel', 'MGPGRUModel']:
         # The InterpolationPredictionModel has high requirements for memory,
         # thus we need to upper bound the batch size when running this model
         batch_size = hyperparameter_by_name('batch_size')
@@ -56,17 +45,35 @@ def handle_special_cases(args, hyperparameters):
             # of 64 is not possible for these models
             batch_size._domain = hp.Discrete([16, 32])
 
+    if args.model == 'TransformerModel':
+        warmup = hyperparameter_by_name('warmup_steps')
+        warmup._domain = hp.Discrete([1000])
+        warmup._default = 1000
+        if args.dataset in ['physionet2019']:
+            # We dont support max aggregation for online scenarios for now
+            aggregation_fn = hyperparameter_by_name('aggregation_fn')
+            aggregation_fn._domain = hp.Discrete(['mean', 'sum'])
+
+    if args.model == 'RevisedDeepSetAttentionModel3':
+        batch_size = hyperparameter_by_name('batch_size')
+        batch_size._domain = hp.Discrete([64, 128])
+        learning_rate = hyperparameter_by_name('learning_rate')
+        learning_rate._domain = LogRealInterval(0.0005, 0.001)
 
     return hyperparameters
 
 
 def create_subfolder(parent_folder, max_number=9999):
     """Create folder with consequtive number in the parent_folder.
+
     Avoids race coditions in the creation of the subfolders.
+
     Args:
         parent_folder: Where to create a new folder
+
     Returns:
         The path tho the new directory.
+
     """
     for subfolder_index in range(max_number):
         try:
@@ -81,9 +88,12 @@ def create_subfolder(parent_folder, max_number=9999):
 
 def set_seed_random_number_generators(seed):
     """Set seeds of random number generators.
+
     This initializes the RNG of python, numpy and tensorflow to the same seed.
+
     Args:
         seed: An integer
+
     """
     import random
     import numpy as np
@@ -96,11 +106,7 @@ def set_seed_random_number_generators(seed):
 
 def main():
     args, hyperparameters = parse_commandline_arguments()
-    # pdb.set_trace()
-    MAX_KEY_LEN = max(len(key) for key in os.environ)
 
-
-    # pdb.set_trace()
     # General options
     log_dir = None
     if args.log_dir is not None:
@@ -118,7 +124,7 @@ def main():
 
     # Save the state
     if log_dir is not None:
-        args.hypersearch = True
+        args.hypersearch = False
         save_args_to_json(args, os.path.join(log_dir, 'config.json'))
 
     print('Recreate run using following command:')
@@ -138,8 +144,7 @@ def main():
         args.early_stopping,
         log_dir,
         balance_dataset=args.balance,
-        debug=args.debug,
-        normalize=args.normalize
+        debug=args.debug
     )
     train_loop()
 
