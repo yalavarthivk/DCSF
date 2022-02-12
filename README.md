@@ -1,5 +1,5 @@
-# AsyncTSC
-This is the source code for the paper (submission id: ) submitted to KDD'22
+# DCSF
+This is the source code for the paper ``DCSF: Deep Convolutional Set Functions for Asynchronous Time Series Classification`` submitted to KDD'22
 
 # Requirements
 python                    3.8.11
