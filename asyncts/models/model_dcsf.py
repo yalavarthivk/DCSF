@@ -12,10 +12,7 @@ from tensorflow.python.framework.smart_cond import smart_cond
 get_output_shapes = tf.compat.v1.data.get_output_shapes
 get_output_types = tf.compat.v1.data.get_output_types
 make_one_shot_iterator = tf.compat.v1.data.make_one_shot_iterator
-# from .cnn_model import cnn_model
-from .cnn_model import dense_layer
 from tensorflow.keras.layers import Dense
-# from keras_transformer.attention import MultiHeadSelfAttention
 from .preproc import data_processing
 from .set_utils import (
     build_dense_dropout_model, PaddedToSegments, SegmentAggregation,
@@ -95,7 +92,7 @@ class cnn_model():
         return model
 
 
-class simple_time(tf.keras.Model):
+class DCSF(tf.keras.Model):
 	dense_options = {
         'activation': 'relu',
         'kernel_initializer': 'he_uniform'
