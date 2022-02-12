@@ -2,7 +2,7 @@
 
 import tensorboard.plugins.hparams.api as hp
 
-from async.training_utils import HParamWithDefault, LogRealInterval
+from asyncts.training_utils import HParamWithDefault, LogRealInterval
 
 
 def training_hyperparameters():

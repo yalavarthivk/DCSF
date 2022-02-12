@@ -2,7 +2,7 @@
 import argparse
 import json
 
-import async.cli.silence_warnings
+import asyncts.cli.silence_warnings
 import tensorflow as tf
 from tensorflow.data.experimental import Reducer
 import tensorflow_datasets as tfds
@@ -10,14 +10,14 @@ import medical_ts_datasets
 import numpy as np
 from tqdm import tqdm
 import pdb
-from async.normalization import Normalizer
-import async.models
-from async.tasks import DATASET_TO_TASK_MAPPING
-from async.training_utils import build_validation_iterator, get_output_shapes, get_padding_values, get_output_types
+from asyncts.normalization import Normalizer
+import asyncts.models
+from asyncts.tasks import DATASET_TO_TASK_MAPPING
+from asyncts.training_utils import build_validation_iterator, get_output_shapes, get_padding_values, get_output_types
 
 
 def load_model(dataset_name, model_name, config_path, weights_path):
-    model_class = getattr(async.models, model_name)
+    model_class = getattr(asyncts.models, model_name)
     with open(config_path, 'r') as f:
         config = json.load(f)
 
@@ -212,7 +212,7 @@ def main():
         '--model',
         required=True,
         type=str,
-        choices=async.models.__all__
+        choices=asyncts.models.__all__
     )
     parser.add_argument('--model-config', required=True, type=str)
     parser.add_argument('--model-weights', required=True, type=str)

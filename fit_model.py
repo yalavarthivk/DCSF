@@ -1,22 +1,22 @@
-"""Fit a model in async using a tensorflow dataset."""
+"""Fit a model in asyncts using a tensorflow dataset."""
 import os
 import logging
 
-import async.cli.silence_warnings
+import asyncts.cli.silence_warnings
 import tensorboard.plugins.hparams.api as hp
 
 
-from async.training_routine import TrainingLoop
-from async.tasks import DATASET_TO_TASK_MAPPING
-from async.training_utils import LogRealInterval
+from asyncts.training_routine import TrainingLoop
+from asyncts.tasks import DATASET_TO_TASK_MAPPING
+from asyncts.training_utils import LogRealInterval
 
-import async.models
-from async.cli.cli_utils import (
+import asyncts.models
+from asyncts.cli.cli_utils import (
     parse_commandline_arguments,
     get_reproducable_commandline,
     save_args_to_json
 )
-from async.cli.hyperparameters import get_hyperparameter_settings
+from asyncts.cli.hyperparameters import get_hyperparameter_settings
 
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
@@ -126,7 +126,7 @@ def main():
     print(commandline)
     set_seed_random_number_generators(args.random_seed)
     task = DATASET_TO_TASK_MAPPING[args.dataset]
-    model = getattr(async.models, args.model).from_hyperparameter_dict(
+    model = getattr(asyncts.models, args.model).from_hyperparameter_dict(
         task, hyperparameter_dict)
 
     train_loop = TrainingLoop(

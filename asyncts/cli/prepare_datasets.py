@@ -11,7 +11,17 @@ def main():
         nargs='+',
         choices=[
             'physionet2012',
+            'mini_physionet'
             'mimic3_mortality',
+            'LSST_async',
+            'LSST_0_1',
+            'LSST_0_5',
+            'LSST_0_9',
+            'PS_async',
+            'PS_0_1',
+            'PS_0_5',
+            'PS_0_9',
+            'activity'
         ],
         type=str
     )

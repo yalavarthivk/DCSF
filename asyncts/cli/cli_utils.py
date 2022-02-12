@@ -5,7 +5,7 @@ import os
 import sys
 
 import medical_ts_datasets
-import async.models
+import asyncts.models
 
 from .hyperparameters import training_hyperparameters, UndefinedHyperparameter
 import pdb
@@ -109,8 +109,8 @@ def parse_commandline_arguments():
     config_parser.add_argument('config_file', type=str)
 
     model_hyperparameters = {}
-    for model_name in async.models.__all__:
-        model = getattr(async.models, model_name)
+    for model_name in asyncts.models.__all__:
+        model = getattr(asyncts.models, model_name)
         model_parser = subparsers.add_parser(model_name)
         hyperparameters = training_hyperparameters()
         hyperparameters.extend(model.get_hyperparameters())

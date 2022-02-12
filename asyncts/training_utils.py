@@ -7,8 +7,7 @@ from collections.abc import Sequence
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import medical_ts_datasets
-import async.models
-# from tf.data.experimental import AUTOTUNE
+import asyncts.models
 AUTOTUNE = tf.data.experimental.AUTOTUNE
 import tensorboard.plugins.hparams.api as hp
 from tensorboard.plugins.hparams import api_pb2
@@ -50,7 +49,7 @@ def init_hyperparam_space(logdir, hparams, metrics):
     # Add dataset and model as hyperparameters
     hparams = [
         hp.HParam('dataset', hp.Discrete(medical_ts_datasets.builders)),
-        hp.HParam('model', hp.Discrete(async.models.__all__))
+        hp.HParam('model', hp.Discrete(asyncts.models.__all__))
     ] + list(hparams)
     # sess = tf.compat.v1.keras.backend.get_session()
     # pdb.set_trace()
@@ -211,47 +210,6 @@ def build_validation_iterator(dataset_name, batch_size, prepro_fn):
         with_info=True
     )
     n_samples = dataset_info.splits['validation'].num_examples
-
-    # pdb.set_trace()
-    # ds_numpy = tfds.as_numpy(dataset)
-    # train_tim = np.zeros([n_samples, 36])
-    # train_mask = np.zeros([n_samples, 36, 6])
-    # train_val = np.zeros([n_samples,36,6])
-    # # dims = np.zeros([4])
-    # dims = np.zeros([1])
-    # i = 0
-    # pdb.set_trace()
-    # train_labels = np.zeros([n_samples])
-    # tim_len = 0
-    # for ex in ds_numpy:
-    #     # if tim_len < ex[0][4]:
-    #     #     tim_len = ex[0][4]
-    #     # train_val[i,0,0] = ex[0][0][0]
-    #     # train_val[i,0,1] = ex[0][0][2]
-    #     # train_val[i,0,2] = ex[0][0][3]
-    #     # train_val[i,0,3] = np.where(ex[0][0][4:8]==1)[0][0]+1
-    #     # train_mask[i,0,0:4] = 1.
-    #     # train_mask[i,0,0] = 1
-    #     train_val[i, 0:ex[0][4],:] = ex[0][2]
-    #     train_mask[i,0:ex[0][4],:] = (ex[0][3]).astype(float)
-    #     train_tim[i,0:ex[0][4]] = ex[0][1]
-    #     train_labels[i] = ex[1].astype(float)
-    #     i += 1
-
-    #     # pdb.set_trace()
-    #     # print(ex)
-    # pdb.set_trace()
-    # train_val = np.nan_to_num(train_val)
-    # np.save('/home/yalavarthi/async_ts/mTAN/src/LSST_0_1/val_val.npy', train_val)
-    # np.save('/home/yalavarthi/async_ts/mTAN/src/LSST_0_1/val_mask.npy', train_mask)
-    # np.save('/home/yalavarthi/async_ts/mTAN/src/LSST_0_1/val_time.npy', train_tim)
-    # np.save('/home/yalavarthi/async_ts/mTAN/src/LSST_0_1/val_labels.npy', train_labels)
-
-    # pdb.set_trace()
-
-
-
-
 
     steps_per_epoch = int(math.ceil(n_samples / batch_size))
 
