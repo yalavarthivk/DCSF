@@ -1,5 +1,5 @@
 # DCSF
-This is the source code for the paper ``DCSF: Deep Convolutional Set Functions for Asynchronous Time Series Classification`` submitted to KDD'22
+This is the source code for the paper ``DCSF: Deep Convolutional Set Functions for Asynchronous Time Series Classification``
 
 # Requirements
 python                    3.8.11
