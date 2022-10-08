@@ -16,12 +16,14 @@ numpy                     1.19.5
 
 scikit-learn              0.24.2
 
+keras		              2.6
+
 
 # Training and Evaluation
 1. mini-Physionet dataset
 
 ```
-python fit_model.py --random_seed 2683894010 --dataset mini_physionet --balance --max_epochs 1000 --early_stopping 30 --log_dir best_hp_results/mini_physionet/  dcsf --learning_rate 0.00022 --batch_size 128 --warmup_steps 0 --normalize 1 --n_dense_layers 0 --dense_width 512 --dense_dropout 0.2 --n_cnn_layers 1
+python fit_model.py --random_seed 2683894010 --dataset miniphysionet --balance --max_epochs 1000 --early_stopping 30 --log_dir best_hp_results/mini_physionet/  dcsf --learning_rate 0.00022 --batch_size 128 --warmup_steps 0 --normalize 1 --n_dense_layers 0 --dense_width 512 --dense_dropout 0.2 --n_cnn_layers 1
 ```
 
 2. Physionet dataset

@@ -8,7 +8,6 @@ import time
 autotune = tf.data.experimental.AUTOTUNE
 from tensorflow import keras
 from tensorflow.python.framework.smart_cond import smart_cond
-import tensorflow_probability as tfp
 get_output_shapes = tf.compat.v1.data.get_output_shapes
 get_output_types = tf.compat.v1.data.get_output_types
 make_one_shot_iterator = tf.compat.v1.data.make_one_shot_iterator

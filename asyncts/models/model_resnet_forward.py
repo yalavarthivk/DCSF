@@ -12,7 +12,6 @@ from tensorflow.python.framework.smart_cond import smart_cond
 get_output_shapes = tf.compat.v1.data.get_output_shapes
 get_output_types = tf.compat.v1.data.get_output_types
 make_one_shot_iterator = tf.compat.v1.data.make_one_shot_iterator
-from .cnn_model import cnn_simple_model_temp
 from tensorflow.keras.layers import Dense
 # from keras_transformer.attention import MultiHeadSelfAttention
 from .preproc import data_processing
@@ -24,7 +23,6 @@ from itertools import chain
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import os 
 import sys
-import tensorflow_probability as tfp
 
 class cnn_model():
     def __init__(self):

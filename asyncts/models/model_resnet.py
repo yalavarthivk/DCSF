@@ -12,7 +12,6 @@ from tensorflow.python.framework.smart_cond import smart_cond
 get_output_shapes = tf.compat.v1.data.get_output_shapes
 get_output_types = tf.compat.v1.data.get_output_types
 make_one_shot_iterator = tf.compat.v1.data.make_one_shot_iterator
-from .cnn_model import cnn_simple_model
 from tensorflow.keras.layers import Dense
 from .preproc import data_processing
 from .set_utils import (

@@ -245,21 +245,21 @@ class Physionet2012(MedicalTsDatasetBuilder):
             tfds.core.SplitGenerator(
                 name=tfds.Split.TRAIN,
                 gen_kwargs={
-                    'data_dirs': [a_path],
+                    'data_dirs': [a_path, b_path, c_path],
                     'outcome_file': os.path.join(RESOURCES, 'train_listfile.csv')
                 },
             ),
             tfds.core.SplitGenerator(
                 name=tfds.Split.VALIDATION,
                 gen_kwargs={
-                    'data_dirs': [a_path],
+                    'data_dirs': [a_path, b_path, c_path],
                     'outcome_file': os.path.join(RESOURCES, 'val_listfile.csv')
                 },
             ),
             tfds.core.SplitGenerator(
                 name=tfds.Split.TEST,
                 gen_kwargs={
-                    'data_dirs': [a_path],
+                    'data_dirs': [a_path, b_path, c_path],
                     'outcome_file': os.path.join(RESOURCES, 'test_listfile.csv')
                 }
             )

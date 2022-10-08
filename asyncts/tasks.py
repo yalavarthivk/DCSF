@@ -282,6 +282,7 @@ class Regression(Task):
 
 DATASET_TO_TASK_MAPPING = {
     'physionet2012': BinaryClassification(),
+    'miniphysionet':BinaryClassification(),
     'mimic3_mortality': BinaryClassification(),
     'LSST_0_1':MulticlassClassification(14),
     'LSST_0_5':MulticlassClassification(14),
